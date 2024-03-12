@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template
 
 
@@ -12,17 +13,25 @@ def index():
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    data = []
+    with open("data/restaurants.json", "r") as json_data:
+        data = json.load(json_data)
+    return render_template("about.html", page_title="Great places to eat and drink!", restaurant=data)
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", page_title="Get in touch")
 
 
-@app.route("/reviews")
-def reviews():
-    return render_template("reviews.html")
+@app.route("/register")
+def register():
+    return render_template("register.html", page_title="Register to leave a review")
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html", page_title="Login")
 
 # change debug to false before project submit 
 
